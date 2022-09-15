@@ -2,7 +2,7 @@ package cn.cls.securitydemo.service.impl;
 
 import cn.cls.securitydemo.entity.LoginUser;
 import cn.cls.securitydemo.entity.User;
-import cn.cls.securitydemo.service.UserService;
+import cn.cls.securitydemo.mapper.UserMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,7 @@ import java.util.Objects;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
-    private UserService userService;
+    private UserMapper userMapper;
 
     /***
      * 给系统加载用户名自动校验
@@ -25,7 +25,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getOne(Wrappers.lambdaQuery(User.class).eq(User::getUserName, username));
+        User user = userMapper.selectOne(Wrappers.lambdaQuery(User.class).eq(User::getUserName, username));
         if (Objects.isNull(user)) {
             throw new RuntimeException("用户名错误！");
         }

@@ -3,6 +3,7 @@ package cn.cls.securitydemo;
 import cn.cls.securitydemo.constant.Constants;
 import cn.cls.securitydemo.entity.User;
 import cn.cls.securitydemo.mapper.UserMapper;
+import cn.cls.securitydemo.util.JwtUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

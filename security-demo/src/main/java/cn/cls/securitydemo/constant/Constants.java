@@ -37,4 +37,9 @@ public class Constants {
      */
     public static final String ISSUER = "chenglongsheng";
 
+    /**
+     * 明文密钥
+     */
+    public static final String SECRET_KEY = "clswudi";
+
 }

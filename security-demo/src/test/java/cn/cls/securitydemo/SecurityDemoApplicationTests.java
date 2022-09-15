@@ -1,5 +1,6 @@
 package cn.cls.securitydemo;
 
+import cn.cls.securitydemo.constant.Constants;
 import cn.cls.securitydemo.entity.User;
 import cn.cls.securitydemo.mapper.UserMapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -23,7 +24,7 @@ class SecurityDemoApplicationTests {
                 .setId("test")
                 .setSubject("testJwt")
                 .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "clswudi");
+                .signWith(SignatureAlgorithm.HS256, Constants.SECRET_KEY);
         String jwt = jwtBuilder.compact();
         System.out.println(jwt);
     }

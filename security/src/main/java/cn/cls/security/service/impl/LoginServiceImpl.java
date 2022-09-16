@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -47,5 +48,15 @@ public class LoginServiceImpl implements LoginService {
 
         // 返回jwt给前端
         return new Result(map, 200, "登录成功");
+    }
+
+    @Override
+    public Result logout() {
+        // 在SecurityContextHolder找到userId删除redis缓存，线程独一份
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        Long id = loginUser.getUser().getId();
+        redisCache.deleteObject("login:" + id);
+        return new Result(200, "注销成功");
     }
 }

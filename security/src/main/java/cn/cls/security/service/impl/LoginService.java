@@ -5,4 +5,6 @@ import cn.cls.security.uitl.Result;
 
 public interface LoginService {
     Result login(User user);
+
+    Result logout();
 }

@@ -1,6 +1,7 @@
 package cn.cls.security;
 
 import cn.cls.security.entity.User;
+import cn.cls.security.mapper.MenuMapper;
 import cn.cls.security.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,15 @@ class SecurityApplicationTests {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private MenuMapper menuMapper;
+
+    @Test
+    void testSelectPermsByUserId() {
+        List<String> list = menuMapper.selectPermsByUserId(1L);
+        System.out.println(list);
+    }
 
     @Test
     void testBCryptPasswordEncoder() {

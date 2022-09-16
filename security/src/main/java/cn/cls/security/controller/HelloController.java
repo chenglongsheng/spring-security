@@ -9,7 +9,7 @@ public class HelloController {
 
     @GetMapping("/hello")
 //    @PreAuthorize("hasAuthority('test22')") 不通过
-    @PreAuthorize("hasAuthority('test')")
+    @PreAuthorize("hasAuthority('system:hello:list')")
     public String hello() {
         return "hello";
     }

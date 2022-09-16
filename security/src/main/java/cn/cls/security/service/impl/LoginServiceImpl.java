@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
         LoginUser authenticatedUser = (LoginUser) authenticate.getPrincipal();
         User userUser = authenticatedUser.getUser();
         String userId = userUser.getId().toString();
-        redisCache.setCacheObject("login:" + userId, userUser);
+        redisCache.setCacheObject("login:" + userId, authenticatedUser);
         String jwt = JwtUtil.createJWT(userId);
         Map<String, String> map = new HashMap<>();
         map.put("token", jwt);

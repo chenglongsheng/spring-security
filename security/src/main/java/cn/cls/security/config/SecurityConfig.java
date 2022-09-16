@@ -1,6 +1,8 @@
 package cn.cls.security.config;
 
 import cn.cls.security.filter.JwtAuthenticationTokenFilter;
+import cn.cls.security.handler.AccessDeniedHandlerImpl;
+import cn.cls.security.handler.AuthenticationEntryPointImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
+    @Autowired
+    private AccessDeniedHandlerImpl accessDeniedHandler;
+
+    @Autowired
+    private AuthenticationEntryPointImpl authenticationEntryPoint;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -41,5 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/hello").permitAll()//放行
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler)
+                .authenticationEntryPoint(authenticationEntryPoint);
     }
 }

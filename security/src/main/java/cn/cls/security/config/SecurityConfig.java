@@ -49,8 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/hello").permitAll()//放行
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        // 处理异常
         http.exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
+        // 允许跨域
+        http.cors();
     }
 }
